@@ -127,7 +127,8 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-  return str.split(value, 2).join('');
+
+  return str.replace(value,'');
 }
 
 /**
@@ -204,7 +205,8 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  return '';
+  let dashStr = '─'.repeat(width - 2);
+  return `┌${dashStr}┐\n` + `│${' '.repeat(width - 2)}│\n`.repeat(height - 2) + `└${dashStr}┘\n`;
 }
 
 
