@@ -36,7 +36,7 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-  return Array.from({length: len}, (v, i) => i*2+1);
+  return Array.from({ length: len }, (v, i) => i * 2 + 1);
 }
 
 
@@ -69,7 +69,7 @@ function doubleArray(arr) {
  *    [] => []
  */
 function getArrayOfPositives(arr) {
-  return arr.filter(item => item > 0);
+  return arr.filter((item) => item > 0);
 }
 
 /**
@@ -84,7 +84,7 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccoon' ] => [ 'cat', 'dog', 'raccoon' ]
  */
 function getArrayOfStrings(arr) {
-  return arr.filter(item => typeof item === 'string');
+  return arr.filter((item) => typeof item === 'string');
 }
 
 /**
@@ -101,7 +101,7 @@ function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 function removeFalsyValues(arr) {
-  return arr.filter(item => item);
+  return arr.filter((item) => item);
 }
 
 /**
@@ -116,7 +116,7 @@ function removeFalsyValues(arr) {
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
  */
 function getUpperCaseStrings(arr) {
-  return arr.map(item => item.toUpperCase());
+  return arr.map((item) => item.toUpperCase());
 }
 
 
@@ -131,7 +131,7 @@ function getUpperCaseStrings(arr) {
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
  */
 function getStringsLength(arr) {
-  return arr.map(item => item.length);
+  return arr.map((item) => item.length);
 }
 
 /**
@@ -146,7 +146,7 @@ function getStringsLength(arr) {
  *    [ 1, 'b', 'c'], 0, 'x'  => [ 'x', 1, 'b', 'c' ]
  */
 function insertItem(arr, item, index) {
-  return arr.splice( index, 0, item );
+  return arr.splice(index, 0, item);
 }
 
 /**
@@ -200,7 +200,7 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-  return arr.map(item => item.join(',')).join('\n');
+  return arr.map((item) => item.join(',')).join('\n');
 }
 
 /**
@@ -235,7 +235,7 @@ function toArrayOfSquares(arr) {
  */
 function getMovingSum(arr) {
   return arr.reduce((res, item, i) => {
-    res.push(i > 0 ? res[i-1] + item : item);
+    res.push(i > 0 ? res[i - 1] + item : item);
     return res;
   }, []);
 }
@@ -253,7 +253,7 @@ function getMovingSum(arr) {
  */
 function getSecondItems(arr) {
   return arr.reduce((res, item, i) => {
-    if (i%2 === 1) res.push(item);
+    if (i % 2 === 1) res.push(item);
     return res;
   }, []);
 }
@@ -275,10 +275,7 @@ function getSecondItems(arr) {
  */
 function propagateItemsByPositionIndex(arr) {
   if (arr.length === 0) return [];
-  return arr.reduce((res, item, i) => {
-    res = res.concat(Array(i+1).fill(item));
-    return res;
-  }, []);
+  return arr.reduce((res, item, i) => res.concat(Array(i + 1).fill(item)), []);
 }
 
 
@@ -314,7 +311,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-  return arr.filter(item => typeof item === 'number' && item > 0).length;
+  return arr.filter((item) => typeof item === 'number' && item > 0).length;
 }
 
 /**
@@ -364,7 +361,7 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-  return arr.filter((item) => !item ).length;
+  return arr.filter((item) => !item).length;
 }
 
 /**
@@ -382,7 +379,7 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurences(arr, item) {
-  return arr.filter(ite => ite === item).length;
+  return arr.filter((ite) => ite === item).length;
 }
 
 /**
@@ -457,8 +454,8 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]
  */
 function getIdentityMatrix(n) {
-  return (new Array(n).fill(0)).map((item,i) => {
-    item =new Array(n).fill(0);
+  return (new Array(n).fill(0)).map((_, i) => {
+    const item = new Array(n).fill(0);
     item[i] = 1;
     return item;
   });
@@ -478,7 +475,7 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-  return new Array(end-start+1).fill(start).map((item,i) => item+i);
+  return new Array(end - start + 1).fill(start).map((item, i) => item + i);
 }
 
 /**

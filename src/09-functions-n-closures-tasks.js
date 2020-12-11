@@ -45,7 +45,7 @@ function getComposition(f, g) {
  *
  */
 function getPowerFunction(exponent) {
-  return (x) => x**exponent;
+  return (x) => x ** exponent;
 }
 
 
@@ -62,14 +62,17 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom(a=0,b=0,c=0) {
-  if (!a && !b && !c) return null;
-  if (!c) {c=b;b=a;a=0;}
-  if (!c) {c=b;b=0;}
-  return (x) =>
-    (a*(x**2) + b*x + c);
-}
+function getPolynom(...args) {
+  if (!args.length) return null;
 
+  return (x) => {
+    let res = 0;
+    for (let i = 0; i < args.length; i += 1) {
+      res += args[i] * x ** (args.length - i - 1);
+    }
+    return res;
+  };
+}
 /**
  * Memoizes passed function and returns function
  * which invoked first time calls the passed function and then always returns cached result.
@@ -85,7 +88,7 @@ function getPolynom(a=0,b=0,c=0) {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-  let res = func();
+  const res = func();
   return () => res;
 }
 
@@ -112,7 +115,7 @@ function retry(func, attempts) {
       try {
         return func();
       } catch (e) {
-        index++;
+        index += 1;
       }
     }
     return false;
@@ -166,9 +169,7 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn, ...args1) {
-  return function (...args2) {
-    return fn(...args1, ...args2);
-  };
+  return (...args2) => fn(...args1, ...args2);
 }
 
 /**
@@ -189,7 +190,8 @@ function partialUsingArguments(fn, ...args1) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-  return () => startFrom++;
+  let counter = startFrom;
+  return () => { counter += 1; return counter - 1; };
 }
 
 module.exports = {

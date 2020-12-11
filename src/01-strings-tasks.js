@@ -66,7 +66,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-  return `${(s = value.split(' '))[1]} ${s[2].slice(0, -1)}`;
+  return value.slice(7, -1);
 }
 
 
@@ -127,8 +127,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-
-  return str.replace(value,'');
+  return str.replace(value, '');
 }
 
 /**
@@ -205,8 +204,8 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  let dashStr = '─'.repeat(width - 2);
-  return `┌${dashStr}┐\n` + `│${' '.repeat(width - 2)}│\n`.repeat(height - 2) + `└${dashStr}┘\n`;
+  const dashStr = '─'.repeat(width - 2);
+  return `┌${dashStr}┐\n${`│${' '.repeat(width - 2)}│\n`.repeat(height - 2)}└${dashStr}┘\n`;
 }
 
 

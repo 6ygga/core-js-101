@@ -28,9 +28,10 @@
  *
  */
 function getFizzBuzz(num) {
-  return num % 15 ? (
-    num % 3 ? (num % 5 ? num : 'Buzz') : 'Fizz'
-  ) : 'FizzBuzz';
+  if (!(num % 15)) return 'FizzBuzz';
+  if (!(num % 5)) return 'Buzz';
+  if (!(num % 3)) return 'Fizz';
+  return num;
 }
 
 
@@ -47,7 +48,7 @@ function getFizzBuzz(num) {
  */
 function getFactorial(n) {
   if (n === 1) return 1;
-  return getFactorial(n-1) * n;
+  return getFactorial(n - 1) * n;
 }
 
 
@@ -65,7 +66,7 @@ function getFactorial(n) {
  */
 function getSumBetweenNumbers(n1, n2) {
   if (n1 === n2) return n1;
-  return n2 + getSumBetweenNumbers(n1, n2-1);
+  return n2 + getSumBetweenNumbers(n1, n2 - 1);
 }
 
 
@@ -76,7 +77,7 @@ function getSumBetweenNumbers(n1, n2) {
  * @param {number} a
  * @param {number} b
  * @param {number} c
- * @return {bool}
+ * @return {boolean}
  *
  * @example:
  *   1,2,3    =>  false
@@ -111,7 +112,7 @@ function isTriangle(a, b, c) {
  *
  * @param {object} rect1
  * @param {object} rect2
- * @return {bool}
+ * @return {boolean|boolean}
  *
  * @example:
  *   { top: 0, left: 0, width: 10, height: 10 },
@@ -169,7 +170,7 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-  for (let i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i += 1) {
     const char = str.charAt(i);
     if (str.indexOf(char) === i && str.indexOf(char, i + 1) === -1) {
       return char;
@@ -204,8 +205,10 @@ function findFirstSingleChar(str) {
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
   let start = '';
   let end = '';
-  isStartIncluded ? start = '[' : start = '(';
-  isEndIncluded ? end = ']' : end = ')';
+  if (isStartIncluded) start = '[';
+  else start = '(';
+  if (isEndIncluded) end = ']';
+  else end = ')';
   return `${start}${a < b ? a : b}, ${b < a ? a : b}${end}`;
 }
 
@@ -265,12 +268,17 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-  const arr = String(ccn).slice(0, -1).split('');
-  for (let i = arr.length - 1; i >= 0; i -= 2) {
-    arr[i] = (arr[i] * 2) > 9 ? arr[i] * 2 - 9 : arr[i] * 2;
+  let sum = 0;
+  const str = ccn.toString();
+  for (let i = 0; i < str.length; i += 1) {
+    let cardNum = parseInt(str[i], 10);
+    if ((str.length - i) % 2 === 0) {
+      cardNum *= 2;
+      if (cardNum > 9) cardNum -= 9;
+    }
+    sum += cardNum;
   }
-  const sum = arr.reduce((accum, curr) => +accum + +curr);
-  return +String(ccn)[String(ccn).length - 1] === sum * 9 % 10;
+  return sum % 10 === 0;
 }
 
 /**
@@ -317,8 +325,8 @@ function getDigitalRoot(num) {
 function isBracketsBalanced(str) {
   const br = ['()', '{}', '<>', '[]'];
   const arr = str.split('');
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < br.length; j++) {
+  for (let i = 0; i < arr.length; i += 1) {
+    for (let j = 0; j < br.length; j += 1) {
       if (`${arr[i]}${arr[i + 1]}` === br[j]) {
         arr.splice(i, 2);
         i = -1;
@@ -352,11 +360,12 @@ function isBracketsBalanced(str) {
 function toNaryString(num, n) {
   if (n === 10) return num;
   const res = [];
-  while (num >= n) {
-    res.push(num % n);
-    num = (num - (num % n)) / n;
+  let counter = num;
+  while (counter >= n) {
+    res.push(counter % n);
+    counter = (counter - (counter % n)) / n;
   }
-  res.push(num);
+  res.push(counter);
   return +res.reverse().join('');
 }
 
@@ -375,8 +384,8 @@ function toNaryString(num, n) {
  */
 function getCommonDirectoryPath(pathes) {
   let path = pathes[0];
-  for (let i = 1; i < pathes.length; i++) {
-    for (let j = 0; j < path.length; j++) {
+  for (let i = 1; i < pathes.length; i += 1) {
+    for (let j = 0; j < path.length; j += 1) {
       if (path[j] !== pathes[i][j]) path = path.substring(0, j);
     }
   }
@@ -407,9 +416,9 @@ function getMatrixProduct(m1, m2) {
     .fill(0)
     .map(() => new Array(m2[0].length).fill(0));
 
-  for (let i = 0; i < res.length; i++) {
-    for (let j = 0; j < res[0].length; j++) {
-      for (let c = 0; c < m1[0].length; c++) {
+  for (let i = 0; i < res.length; i += 1) {
+    for (let j = 0; j < res[0].length; j += 1) {
+      for (let c = 0; c < m1[0].length; c += 1) {
         res[i][j] += m1[i][c] * m2[c][j];
       }
     }
@@ -450,7 +459,7 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(p) {
-  for (let i = 0; i < p.length; i++) {
+  for (let i = 0; i < p.length; i += 1) {
     if (p[i][0] === p[i][1] && p[i][1] === p[i][2] && p[i][0] !== undefined) {
       return p[i][0];
     }
